@@ -9,9 +9,10 @@ const SignIn = () => {
     setState({ email: '', password: '' })
   }
   const handleChange = (event) => {
-    console.log('event', event.target);
+    
     const {name, value} = event.target
-    setState({[name]: value})
+    // when change email or password, just overwrite the property value
+    setState({...state ,[name]: value})
   }
 
   return (
