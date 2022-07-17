@@ -2,7 +2,7 @@ import React from 'react'
 import './header.scss'
 import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { Link } from 'react-router-dom'
-import { auth } from '../../firebase/firebase.utils'
+import { signOutWithGoogle } from '../../firebase/firebase.utils'
 const Header = ({ user})=> {
   return (
     <div className="header">
@@ -17,7 +17,7 @@ const Header = ({ user})=> {
           CONCAt
         </Link>
         {
-          user.currentUser ? <div className="option" onClick={ () => auth.signOut()}>SIGN OUT</div> : <Link className="option" to="/siginIn">SIGN IN</Link>
+          user.currentUser ? <div className="option" onClick={ signOutWithGoogle}>SIGN OUT</div> : <Link className="option" to="/siginIn">SIGN IN</Link>
         }
       </div>
     </div>

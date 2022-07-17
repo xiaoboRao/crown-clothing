@@ -5,14 +5,27 @@ import HomePage from './pages/homePage/homePage'
 import ShopPage from './pages/shop/shopPage'
 import Header from './components/header/header'
 import SignIn from './components/signIn/signIn'
-import { auth } from './firebase/firebase.utils'
+import { auth, onGoogleAuthStateChanged, userRefOnSnapshot } from './firebase/firebase.utils'
 function App() {
   const [user, setUser] = useState({ currentUser: '' })
-  // when componentDidMount trigger
+  // when componentDidMount trigger, and just trigger once
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setUser({ currentUser: user })
-      console.log(user)
+    onGoogleAuthStateChanged(auth, async (userAuth) => {
+      if (userAuth) {
+        userRefOnSnapshot(userAuth, {}, (snapshot) => {
+          setUser(() => {
+            const user = {
+              currentUser: {
+                id: snapshot.id,
+                ...snapshot.data(),
+              },
+            }
+            return user
+          })
+        })
+      } else {
+        setUser({ currentUser: userAuth })
+      }
     })
   }, [])
   return (
