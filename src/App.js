@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import HomePage from './pages/homePage/homePage'
 import ShopPage from './pages/shop/shopPage'
 import Header from './components/header/header'
-import SignIn from './components/signIn/signIn'
+import SignInAndSignUp from './pages/signInAndSignUp/signInAndSignUp'
 import { auth, onGoogleAuthStateChanged, userRefOnSnapshot } from './firebase/firebase.utils'
 function App() {
   const [user, setUser] = useState({ currentUser: '' })
@@ -35,7 +35,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePage}></Route>
           <Route path="/shop" component={ShopPage}></Route>
-          <Route path="/siginIn" component={SignIn}></Route>
+          <Route path="/siginIn" component={SignInAndSignUp}></Route>
         </Switch>
       </div>
     </Router>
