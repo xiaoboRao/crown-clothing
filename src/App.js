@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import HomePage from './pages/homePage/homePage'
 import ShopPage from './pages/shop/shopPage'
 import Header from './components/header/header'
@@ -9,7 +9,7 @@ import { auth, onGoogleAuthStateChanged, userRefOnSnapshot } from './firebase/fi
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import setCurrentUser from './redux/user/userAction'
-const App = ({ setCurrentUser }) => {
+const App = ({ currentUser, setCurrentUser }) => {
   // const [user, setUser] = useState({ currentUser: '' })
   // when componentDidMount trigger, and just trigger once
   useEffect(() => {
@@ -28,19 +28,24 @@ const App = ({ setCurrentUser }) => {
   }, [])
   return (
     <div>
-      <Header  />
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage}></Route>
         <Route path="/shop" component={ShopPage}></Route>
-        <Route path="/siginIn" component={SignInAndSignUp}></Route>
+        <Route path="/siginIn">{currentUser ? <Redirect to="/" /> : <SignInAndSignUp />}</Route>
       </Switch>
     </div>
   )
 }
+const mapStateToProps = ({ user }) => {
+  return {
+    currentUser: user.currentUser,
+  }
+}
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrentUser: bindActionCreators(setCurrentUser, dispatch)
+    setCurrentUser: bindActionCreators(setCurrentUser, dispatch),
   }
 }
 
-export default connect(null, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

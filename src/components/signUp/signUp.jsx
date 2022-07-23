@@ -28,7 +28,6 @@ const SignUp = () => {
     try {
       const { user } = await createUserWithEmailAndPwd(email, password)
       await createUserProfileDocument(user, { displayName })
-
       setState({
         displayName: '',
         email: '',
@@ -42,7 +41,7 @@ const SignUp = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target
-    setState({ ...state, [name]: value})
+    setState({ ...state, [name]: value })
   }
 
   return (
