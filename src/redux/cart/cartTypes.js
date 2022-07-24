@@ -1,3 +1,4 @@
-export const cartTypes = {
-  toggleCartDropdownHidden: 'toggleCartDropdownHidden',
+export const CartTypes = {
+  TOGGLECARTDROPDOWNHIDDEN: 'TOGGLECARTDROPDOWNHIDDEN',
+  ADDITEM: 'ADD_ITEM'
 }

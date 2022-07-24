@@ -14,4 +14,5 @@ const userReducer = (state = INIT_STATE, action) => {
       return state
   }
 }
+
 export default userReducer
