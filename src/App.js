@@ -5,9 +5,12 @@ import HomePage from './pages/homePage/homePage'
 import ShopPage from './pages/shop/shopPage'
 import Header from './components/header/header'
 import SignInAndSignUp from './pages/signInAndSignUp/signInAndSignUp'
+import CartCheckout from './pages/cartCheckout/checkout'
 import { auth, onGoogleAuthStateChanged, userRefOnSnapshot } from './firebase/firebase.utils'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { createStructuredSelector } from 'reselect'
+import { selectCurrentUser } from './redux/user/userSelect'
 import setCurrentUser from './redux/user/userAction'
 const App = ({ currentUser, setCurrentUser }) => {
   // const [user, setUser] = useState({ currentUser: '' })
@@ -33,15 +36,14 @@ const App = ({ currentUser, setCurrentUser }) => {
         <Route exact path="/" component={HomePage}></Route>
         <Route path="/shop" component={ShopPage}></Route>
         <Route path="/siginIn">{currentUser ? <Redirect to="/" /> : <SignInAndSignUp />}</Route>
+        <Route path="/checkout" component={CartCheckout}></Route>
       </Switch>
     </div>
   )
 }
-const mapStateToProps = ({ user }) => {
-  return {
-    currentUser: user.currentUser,
-  }
-}
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+}) 
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentUser: bindActionCreators(setCurrentUser, dispatch),

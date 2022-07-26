@@ -15,10 +15,17 @@
     height: 300px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     overflow: scroll;
     
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    .empty-message {
+      margin-top: 50px;
+      font-size: 18px;
+      
     }
   }
 
