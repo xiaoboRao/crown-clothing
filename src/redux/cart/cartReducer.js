@@ -1,5 +1,5 @@
 import { CartTypes } from './cartTypes'
-import { addItemTOCart } from './cartUtils'
+import { addItemTOCart, clearItemFromCart, removeItemFromCart } from './cartUtils'
 const INIT_STATE = {
   cartDropdownHidden: true,
   cartItems: []
@@ -17,6 +17,16 @@ const cartReducer = (state = INIT_STATE, action) => {
         ...state,
         cartItems: addItemTOCart(state.cartItems, action.payload)
       }
+      case CartTypes.CLEATITEM:
+        return {
+          ...state,
+          cartItems: clearItemFromCart(state.cartItems, action.payload)
+        }
+      case CartTypes.REMOVEITEM:
+        return {
+          ...state,
+            cartItems: removeItemFromCart(state.cartItems, action.payload)
+        }
     default:
       return state
   }
