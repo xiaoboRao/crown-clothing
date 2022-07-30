@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
+import { persistStore  } from 'redux-persist'
 import rootReduer from './rootReduer'
 
 function logger({ getState }) {
@@ -16,6 +17,8 @@ function logger({ getState }) {
   }
 }
 
-const store = createStore(rootReduer, applyMiddleware(logger))
 
-export default store
+export const store = createStore(rootReduer, applyMiddleware(logger))
+
+export const persistor  = persistStore(store)
+
