@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import { auth, onGoogleAuthStateChanged, userRefOnSnapshot } from './firebase/firebase.utils'
 import { bindActionCreators } from 'redux'
@@ -28,6 +28,7 @@ const App = ({ currentUser, setCurrentUser }) => {
         setCurrentUser(userAuth)
       }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div>
