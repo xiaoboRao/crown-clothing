@@ -2,8 +2,9 @@ import { createStore, applyMiddleware } from 'redux'
 import { persistStore  } from 'redux-persist'
 import rootReduer from './rootReduer'
 
+const middlewares = []
 function logger({ getState }) {
-  return next => action => {
+  return (next) => (action) => {
     console.log('will dispatch', action)
 
     // Call the next dispatch method in the middleware chain.
@@ -17,8 +18,11 @@ function logger({ getState }) {
   }
 }
 
+if (process.env.NODE_ENV === 'development') {
+  middlewares.push(logger)
+}
 
-export const store = createStore(rootReduer, applyMiddleware(logger))
+export const store = createStore(rootReduer, applyMiddleware(...middlewares))
 
 export const persistor  = persistStore(store)
 
