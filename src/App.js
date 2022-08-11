@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './App.css'
-import { auth, onGoogleAuthStateChanged, userRefOnSnapshot } from './firebase/firebase.utils'
+import { auth, onGoogleAuthStateChanged, userRefOnSnapshot, addCollectioAndDocumets } from './firebase/firebase.utils'
 import { bindActionCreators } from 'redux'
 import CartCheckout from './pages/cartCheckout/checkout'
 import { connect } from 'react-redux'
@@ -8,11 +8,12 @@ import { createStructuredSelector } from 'reselect'
 import Header from './components/header/header'
 import HomePage from './pages/homePage/homePage'
 import { selectCurrentUser } from './redux/user/userSelect'
+import { selectShopDataForPreview } from './redux/shop/shopSelector.js'
 import setCurrentUser from './redux/user/userAction'
 import ShopPage from './pages/shop/shopPage'
 import SignInAndSignUp from './pages/signInAndSignUp/signInAndSignUp'
 import { Switch, Route, Redirect } from 'react-router-dom'
-const App = ({ currentUser, setCurrentUser }) => {
+const App = ({ currentUser, setCurrentUser, collectionArray }) => {
   // const [user, setUser] = useState({ currentUser: '' })
   // when componentDidMount trigger, and just trigger once
   useEffect(() => {
@@ -24,6 +25,7 @@ const App = ({ currentUser, setCurrentUser }) => {
             ...snapshot.data(),
           })
         })
+        addCollectioAndDocumets('collections', collectionArray)
       } else {
         setCurrentUser(userAuth)
       }
@@ -44,6 +46,7 @@ const App = ({ currentUser, setCurrentUser }) => {
 }
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  collectionArray: selectShopDataForPreview,
 }) 
 const mapDispatchToProps = (dispatch) => {
   return {
