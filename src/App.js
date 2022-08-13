@@ -13,8 +13,7 @@ import setCurrentUser from './redux/user/userAction'
 import ShopPage from './pages/shop/shopPage'
 import SignInAndSignUp from './pages/signInAndSignUp/signInAndSignUp'
 import { Switch, Route, Redirect } from 'react-router-dom'
-const App = ({ currentUser, setCurrentUser, collectionArray }) => {
-  // const [user, setUser] = useState({ currentUser: '' })
+const App = ({ currentUser, setCurrentUser }) => {
   // when componentDidMount trigger, and just trigger once
   useEffect(() => {
     onGoogleAuthStateChanged(auth, async (userAuth) => {
@@ -25,7 +24,6 @@ const App = ({ currentUser, setCurrentUser, collectionArray }) => {
             ...snapshot.data(),
           })
         })
-        addCollectioAndDocumets('collections', collectionArray)
       } else {
         setCurrentUser(userAuth)
       }
@@ -46,7 +44,6 @@ const App = ({ currentUser, setCurrentUser, collectionArray }) => {
 }
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  collectionArray: selectShopDataForPreview,
 }) 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { collection, getFirestore, doc, getDoc, setDoc, onSnapshot, writeBatch } from 'firebase/firestore'
+import { collection, getFirestore, doc, getDoc, setDoc, onSnapshot, writeBatch, query } from 'firebase/firestore'
 import {
   getAuth,
   onAuthStateChanged,
@@ -56,7 +56,6 @@ export const createUserProfileDocument = async (userAuth, addtionalData) => {
   return userRef
 }
 export const addCollectioAndDocumets = async (collectionKey, objectsToAdd) => {
-  console.log('objectsToAdd', objectsToAdd)
   const batch = writeBatch(db)
   // batch add objectsToAdd into firestore
   objectsToAdd.forEach((obj) => {
@@ -64,7 +63,11 @@ export const addCollectioAndDocumets = async (collectionKey, objectsToAdd) => {
     batch.set(docRef, obj)
   })
   return await batch.commit()
-} 
+}
+export const getMapDataByName = async (collectionName, fn) => {
+  const docRef = query(collection(db, collectionName))
+  onSnapshot(docRef, fn)
+}
 export const userRefOnSnapshot = async (userAuth, addtionalData, fn) =>{
   const doc =  await createUserProfileDocument(userAuth, addtionalData)
   return onSnapshot(doc, fn)
