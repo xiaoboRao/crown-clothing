@@ -56,14 +56,14 @@ export const createUserProfileDocument = async (userAuth, addtionalData) => {
   return userRef
 }
 export const addCollectioAndDocumets = async (collectionKey, objectsToAdd) => {
-  const collectionRef = doc(collection(db, collectionKey))
-  // const batch = writeBatch(db)
-
-  objectsToAdd.forEach(async (obj) => {
-    const newDocRef = await setDoc(collectionRef, obj)
-    // batch.set(newDocRef, obj)
+  console.log('objectsToAdd', objectsToAdd)
+  const batch = writeBatch(db)
+  // batch add objectsToAdd into firestore
+  objectsToAdd.forEach((obj) => {
+    const docRef = doc(collection(db, collectionKey))
+    batch.set(docRef, obj)
   })
-  // return await batch.commit()
+  return await batch.commit()
 } 
 export const userRefOnSnapshot = async (userAuth, addtionalData, fn) =>{
   const doc =  await createUserProfileDocument(userAuth, addtionalData)
