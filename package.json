@@ -15,7 +15,8 @@
     "react-router-dom": "^5.3.3",
     "react-stripe-checkout": "^2.6.3",
     "redux-persist": "^6.0.0",
-    "reselect": "^4.1.6"
+    "reselect": "^4.1.6",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "react-scripts": "3.4.1"
