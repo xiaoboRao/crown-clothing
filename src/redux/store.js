@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware } from 'redux'
 import { persistStore  } from 'redux-persist'
 import rootReduer from './rootReduer'
+import thunk from 'redux-thunk'
 
-const middlewares = []
+const middlewares = [thunk]
 function logger({ getState }) {
   return (next) => (action) => {
     console.log('will dispatch', action)
