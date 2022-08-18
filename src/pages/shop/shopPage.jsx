@@ -1,40 +1,27 @@
 import React, { useEffect } from 'react'
-import { createStructuredSelector } from 'reselect'
-import { selectIsShopFetching } from '../../redux/shop/shopSelector'
 import { connect } from 'react-redux'
 import { Route } from 'react-router-dom'
-import CollectionOverview from '../../components/collectionOverview/collectionOverview'
-import CollectionPage from '../collection/collection'
-import WithSpinner from '../../components/withSpinner/withSpinner'
 import { fetchCollectionsAsync } from '../../redux/shop/shopAction'
-const CollectionOverviewWithSpinner = WithSpinner(CollectionOverview)
-const CollectionPageWithSpinner = WithSpinner(CollectionPage)
+import CollectionOverviewContainer from '../../components/collectionOverview/collectionOverviewContainer'
+import CollectionContainer from '../collection/collectionContainer'
 
-const ShopPage = ({ match, isFetchingAsync, fetchCollectionsAsync }) => {
+const ShopPage = ({ match, fetchCollectionsAsync }) => {
   useEffect(() => {
     fetchCollectionsAsync()
   }, [])
   return (
     <div className="shop-page">
-      <Route
-        exact
-        path={match.path}
-        render={(props) => <CollectionOverviewWithSpinner isLoading={isFetchingAsync} {...props} />}
-      ></Route>
-      <Route
-        path={`${match.path}/:collection`}
-        render={(props) => <CollectionPageWithSpinner isLoading={isFetchingAsync} {...props} />}
-      ></Route>
+      <Route exact path={match.path} component={CollectionOverviewContainer}></Route>
+
+      <Route path={`${match.path}/:collection`} component={CollectionContainer}></Route>
     </div>
   )
 }
-const mapStateToProps = createStructuredSelector({
-  isFetchingAsync: selectIsShopFetching,
-})
+
 const mapDispatchToProps = (dispatch) => ({
   fetchCollectionsAsync: () => {
     dispatch(fetchCollectionsAsync())
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopPage)
+export default connect(null, mapDispatchToProps)(ShopPage)
