@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware } from 'redux'
 import { persistStore  } from 'redux-persist'
 import rootReduer from './rootReduer'
-import thunk from 'redux-thunk'
-
-const middlewares = [thunk]
+import createSagaMiddleware from 'redux-saga'
+import { fetchCollectionStart } from '../redux/shop/shopSaga'
+// import thunk from 'redux-thunk'
+const sagaMiddleware = createSagaMiddleware()
+const middlewares = [sagaMiddleware]
 function logger({ getState }) {
   return (next) => (action) => {
     console.log('will dispatch', action)
@@ -24,6 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export const store = createStore(rootReduer, applyMiddleware(...middlewares))
+sagaMiddleware.run(fetchCollectionStart)
 
 export const persistor  = persistStore(store)
 
