@@ -39,7 +39,10 @@ provider.setCustomParameters({ prompt: 'select_account' })
 // when google account changed, it will trigger
 export const onGoogleAuthStateChanged = (auth, fn) => onAuthStateChanged(auth, fn)
 
-export const signInWithGoogle = () => signInWithPopup(auth, provider)
+export const signInWithGoogle = async () => {
+  const { user } = await signInWithPopup(auth, provider)
+  return {id: user.uid, creatAt: user.metadata.creationTime, displayName: user.displayName, email:user.email}
+}
 export const signOutWithGoogle = () => signOut(auth, provider)
 
 const db = getFirestore(app)
@@ -95,5 +98,6 @@ export const createUserWithEmailAndPwd = async (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password)
 }
 export const signInWithEmailAndpwd = async (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password)
+  const { user } = await signInWithEmailAndPassword(auth, email, password)
+  return {id: user.uid, creatAt: user.metadata.creationTime, displayName: user.displayName, email:user.email}
 }

@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { googleSingInStart, emailSingInStart } from '../../redux/user/userAction'
 import FormInput from '../formInput/formInput'
 import { signInWithGoogle, signInWithEmailAndpwd } from '../../firebase/firebase.utils'
 import CustomButton from '../customButtom/customButtom'
 import './signIn.scss'
-const SignIn = () => {
+const SignIn = ({ signInWithGoogle, signInWithEmail }) => {
   const [state, setState] = useState({ email: '', password: '' })
   const hanleSubmit = (event) => {
     event.preventDefault()
-    signInWithEmailAndpwd(state.email, state.password)
+    signInWithEmail(state)
     // empty the email and password input
     setState({ email: '', password: '' })
   }
   const handleChange = (event) => {
     const { name, value } = event.target
-
     // when change email or password, just overwrite the property value
     setState({ ...state, [name]: value })
   }
@@ -51,5 +52,12 @@ const SignIn = () => {
     </div>
   )
 }
-
-export default SignIn
+const mapDispatchToProps = (dispatch) => ({
+  signInWithGoogle: () => {
+    dispatch(googleSingInStart())
+  },
+  signInWithEmail: (emailAndPassword) => {
+    dispatch(emailSingInStart(emailAndPassword))
+  }
+})
+export default connect(null, mapDispatchToProps)(SignIn)
