@@ -43,7 +43,7 @@ export const signInWithGoogle = async () => {
   const { user } = await signInWithPopup(auth, provider)
   return {id: user.uid, creatAt: user.metadata.creationTime, displayName: user.displayName, email:user.email}
 }
-export const signOutWithGoogle = () => signOut(auth, provider)
+export const signOutStart = () => signOut(auth, provider)
 
 const db = getFirestore(app)
 
@@ -100,4 +100,14 @@ export const createUserWithEmailAndPwd = async (email, password) => {
 export const signInWithEmailAndpwd = async (email, password) => {
   const { user } = await signInWithEmailAndPassword(auth, email, password)
   return {id: user.uid, creatAt: user.metadata.creationTime, displayName: user.displayName, email:user.email}
+}
+
+export const getUser = () => {
+  return new Promise((resolve, reject) => {
+     onAuthStateChanged(auth, (user) => {
+      if(user) {
+        resolve({id: user.uid, creatAt: user.metadata.creationTime, displayName: user.displayName, email:user.email})
+      }
+      },  reject)
+  })
 }

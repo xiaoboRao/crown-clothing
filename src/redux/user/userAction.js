@@ -20,13 +20,33 @@ export const emailSingInStart = (emailAndPassword) => ({
   
 })
 
-export const emailSingInSuccess = (emailAndPwd) => ({
+export const emailSingInSuccess = (payload) => ({
   type: UserActionTypes.SIGNIN_SUCCESS,
-  payload: emailAndPwd
+  payload: payload
 })
+
 
 export const emailSingInFailure = (error) => ({
   type: UserActionTypes.SIGNIN_FAILURE,
   payload: error
 })
 
+export const signOutStart = () => ({
+  type: UserActionTypes.SIGNOUT_START,  
+})
+
+export const signOutSuccess = () => ({
+  type: UserActionTypes.SIGNOUT_SUCCESS,
+  payload: null
+})
+
+
+export const signOutFailure = (error) => ({
+  type: UserActionTypes.SIGNOUT_FAILURE,
+  payload: error
+})
+
+
+export const checkUserSession = () => ({
+  type: UserActionTypes.CHECK_USER_SESSION,
+})
