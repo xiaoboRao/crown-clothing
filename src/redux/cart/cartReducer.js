@@ -17,10 +17,15 @@ const cartReducer = (state = INIT_STATE, action) => {
         ...state,
         cartItems: addItemTOCart(state.cartItems, action.payload)
       }
-      case CartTypes.CLEATITEM:
+      case CartTypes.CLEAT_ITEM_FROM_CART:
         return {
           ...state,
           cartItems: clearItemFromCart(state.cartItems, action.payload)
+        }
+      case CartTypes.CLEAR_CART: 
+        return {
+          ...state,
+          cartItems: []
         }
       case CartTypes.REMOVEITEM:
         return {

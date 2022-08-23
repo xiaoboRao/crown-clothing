@@ -1,5 +1,5 @@
 import React from 'react'
-import { addItem, clearItem, removeItem } from '../../redux/cart/cartAction'
+import { addItem, clearItemFromCart, removeItem } from '../../redux/cart/cartAction'
 import { connect } from 'react-redux'
 import './checkoutItem.scss'
 
@@ -37,7 +37,7 @@ const CheckoutItem = ({ addItem, cartItem, clearItem, removeItem }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addItem: (cartItem) => dispatch(addItem(cartItem)),
-    clearItem: (cartItem) => dispatch(clearItem(cartItem)),
+    clearItem: (cartItem) => dispatch(clearItemFromCart(cartItem)),
     removeItem: (cartItem) => dispatch(removeItem(cartItem)),
   }
 }
