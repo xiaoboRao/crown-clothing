@@ -53,20 +53,19 @@ export const createUserProfileDocument = async (userAuth, addtionalData) => {
   const userSnap = await getDoc(userRef)
 
   if (!userSnap.exists()) {
-    const { displayName, email } = userAuth
+    const { email } = userAuth
     const creatAt = new Date()
     try {
       await setDoc(userRef, {
-        displayName,
         email,
         creatAt,
         ...addtionalData,
       })
+      return userRef
     } catch (error) {
       console.log('error creat user', error.message)
     }
   }
-  return userRef
 }
 export const addCollectioAndDocumets = async (collectionKey, objectsToAdd) => {
   const batch = writeBatch(db)
@@ -90,12 +89,13 @@ export const getMapDataByName = async (collectionName) => {
     console.log('error', error)
   }
 }
-export const userRefOnSnapshot = async (userAuth, addtionalData, fn) =>{
-  const doc =  await createUserProfileDocument(userAuth, addtionalData)
+export const userRefOnSnapshot = async (userAuth, addtionalData, fn) => {
+  const doc = await createUserProfileDocument(userAuth, addtionalData)
   return onSnapshot(doc, fn)
 }
 export const createUserWithEmailAndPwd = async (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password)
+  const { user } = await createUserWithEmailAndPassword(auth, email, password)
+  return { id: user.uid, creatAt: user.metadata.creationTime, displayName: user.displayName, email: user.email }
 }
 export const signInWithEmailAndpwd = async (email, password) => {
   const { user } = await signInWithEmailAndPassword(auth, email, password)
