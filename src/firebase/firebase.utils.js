@@ -49,16 +49,13 @@ const db = getFirestore(app)
 
 export const createUserProfileDocument = async (userAuth, addtionalData) => {
   if (!userAuth) return
-  const userRef = doc(db, 'users', userAuth.uid)
+  const userRef = doc(db, 'users', userAuth.id)
   const userSnap = await getDoc(userRef)
 
   if (!userSnap.exists()) {
-    const { email } = userAuth
-    const creatAt = new Date()
     try {
       await setDoc(userRef, {
-        email,
-        creatAt,
+        ...userAuth,
         ...addtionalData,
       })
       return userRef

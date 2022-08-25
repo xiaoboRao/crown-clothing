@@ -20,7 +20,6 @@ const SignUp = ({signUpStart}) => {
       alert("passwords don't match")
       return
     }
-    console.log('state', state);
     signUpStart(state)
   }
 

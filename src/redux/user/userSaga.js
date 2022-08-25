@@ -47,22 +47,20 @@ export function* checkUserSession() {
   }
 }
 export function* signUp({ payload: { email, password, displayName } }) {
-  yield console.log('email, password, displayName ', email, password, displayName)
   try {
-    const { user } = yield call(createUserWithEmailAndPwd, email, password)
-    put(signUpSuccess({ user, addtionalData: { displayName } }))
+    const user = yield createUserWithEmailAndPwd(email, password)
+    yield put(signUpSuccess({ user, addtionalData: { displayName } }))
   } catch (error) {
-    put(signUpFailure(error))
+    yield put(signUpFailure(error))
   }
 }
 
 export function* signAfterSignUp({ payload: { user, addtionalData } }) {
   try {
-    const userRef = yield createUserProfileDocument(user, addtionalData)
-    yield console.log('userRef', userRef)
-    put(emailSingInSuccess({ user, ...addtionalData }))
+    yield createUserProfileDocument(user, addtionalData)
+    yield put(emailSingInSuccess({ ...user, ...addtionalData }))
   } catch (error) {
-    put(emailSingInFailure(error))
+    yield put(emailSingInFailure(error))
   }
 }
 export function* signOut() {
@@ -93,9 +91,9 @@ export function* onSignOutStart() {
 export function* onSignUpStart() {
   yield takeLatest(UserActionTypes.SIGNUP_START, signUp)
 }
-// export function* onSignUpSuccss() {
-//   yield takeLatest(UserActionTypes.SIGNUP_SUCCESS, signAfterSignUp)
-// }
+export function* onSignUpSuccss() {
+  yield takeLatest(UserActionTypes.SIGNUP_SUCCESS, signAfterSignUp)
+}
 export function* userSaga() {
   yield all([
     call(onSignInWithGoogleStart),
@@ -103,6 +101,6 @@ export function* userSaga() {
     call(onCheckUserStart),
     call(onSignOutStart),
     call(onSignUpStart),
-    // call(onSignUpSuccss)
+    call(onSignUpSuccss),
   ])
 }

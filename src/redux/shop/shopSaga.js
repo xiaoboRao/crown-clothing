@@ -4,7 +4,6 @@ import { getMapDataByName } from '../../firebase/firebase.utils'
 import { shopActionTypes } from './shopType'
 
 export function* fetchCollectionAsync() {
-  yield console.log('saga start')
   try {
     const collectionMap = yield call(getMapDataByName, 'collections')
     yield put(fetchCollectionsSuccess(collectionMap))
