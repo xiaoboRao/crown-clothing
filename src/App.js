@@ -14,7 +14,7 @@ const App = ({ currentUser, onCheckUserSession }) => {
   // when componentDidMount trigger, and just trigger once
   useEffect(() => {
     onCheckUserSession()
-  }, [])
+  }, [onCheckUserSession])
   return (
     <div>
       <Header />

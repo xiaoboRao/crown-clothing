@@ -8,7 +8,7 @@ import CollectionContainer from '../collection/collectionContainer'
 const ShopPage = ({ match, fetchCollectionStart }) => {
   useEffect(() => {
     fetchCollectionStart()
-  }, [])
+  }, [fetchCollectionStart])
   return (
     <div className="shop-page">
       <Route exact path={match.path} component={CollectionOverviewContainer}></Route>

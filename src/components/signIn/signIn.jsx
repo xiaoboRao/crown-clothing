@@ -2,21 +2,20 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { googleSingInStart, emailSingInStart } from '../../redux/user/userAction'
 import FormInput from '../formInput/formInput'
-import { signInWithGoogle, signInWithEmailAndpwd } from '../../firebase/firebase.utils'
 import CustomButton from '../customButtom/customButtom'
 import './signIn.scss'
 const SignIn = ({ signInWithGoogle, signInWithEmail }) => {
-  const [state, setState] = useState({ email: '', password: '' })
+  const [userInfo, setUserInfo] = useState({ email: '', password: '' })
   const hanleSubmit = (event) => {
     event.preventDefault()
-    signInWithEmail(state)
+    signInWithEmail(userInfo)
     // empty the email and password input
-    setState({ email: '', password: '' })
+    setUserInfo({ email: '', password: '' })
   }
   const handleChange = (event) => {
     const { name, value } = event.target
     // when change email or password, just overwrite the property value
-    setState({ ...state, [name]: value })
+    setUserInfo({ ...userInfo, [name]: value })
   }
 
   return (
@@ -30,7 +29,7 @@ const SignIn = ({ signInWithGoogle, signInWithEmail }) => {
           name="email"
           type="email"
           label="Email"
-          value={state.email}
+          value={userInfo.email}
           required
         ></FormInput>
         <FormInput
@@ -38,7 +37,7 @@ const SignIn = ({ signInWithGoogle, signInWithEmail }) => {
           name="password"
           type="password"
           label="Password"
-          value={state.password}
+          value={userInfo.password}
           required
         ></FormInput>
 

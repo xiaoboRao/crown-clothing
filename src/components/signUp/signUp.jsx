@@ -6,6 +6,7 @@ import { signUpStart } from '../../redux/user/userAction'
 import './signUp.scss'
 
 const SignUp = ({signUpStart}) => {
+  
   const [state, setState] = useState({
     displayName: '',
     email: '',
