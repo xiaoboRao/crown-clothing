@@ -1,20 +1,27 @@
-## Lesson-3
+# Crown Clothing 
+**[crown-clothing](https://crown-clothig.herokuapp.com/)** is a e-commerce type platfrom which is integrated with firebase and stripe third party fucntion.
 
-Going through our folder structure for the project, breaking out homepage component into smaller components
+## Main Structure
 
-# How to fork and clone
-
-One quick note about cloning this project. If you wish to make commits and push the code up after cloning this repo, you should fork the project first. In order to own your own copy of this repository, you have to fork it so you get your own copy on your own profile!
-
-You can see the fork button in the top right corner of every GitHub project; click it and a copy of the project will be added to your GitHub profile under the same name as the original project.
-
-![alt text](https://i.ibb.co/1YN7SJ6/Screen-Shot-2019-07-01-at-2-02-40-AM.png "image to fork button")
-
-After forking the project, simply clone it the way you would from the new forked project in your own GitHub repository and you can commit and push to it freely!
+![crown-clothing](src/assets/crown-clothing.png)
 
 
-# After you fork and clone:
+## Main Tech Stack
 
-## Install dependencies
+- [x] **[React](https://reactjs.org/docs/hooks-intro.html)**, using the the lastest React Hooks
+- [x] **[Redux Saga](https://redux-saga.js.org/docs/introduction/GettingStarted)** 
+- [x] **[Reselect](https://github.com/reduxjs/reselect)**
+- [x] **[Redux Persist](https://github.com/rt2zz/redux-persist)**
+- [x] **[Firebase](https://firebase.google.com/)**
+- [x] **[Stripe](https://stripe.com/docs/testing#testing-interactively)**
 
-In your terminal after you clone your project down, remember to run either `yarn` or `npm install` to build all the dependencies in the project.
+
+## Payment Card Number
+
+When testing interactively, use a card number, such as 4242 4242 4242 4242. Enter the card number in the Dashboard or in any payment form.
+
+- Use a valid future date, such as 12/34.
+  
+- Use any three-digit CVC (four digits for American Express cards).
+  
+- Use any value you like for other form fields.
