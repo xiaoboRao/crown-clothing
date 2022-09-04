@@ -12,6 +12,7 @@
 - [x] **[Redux Saga](https://redux-saga.js.org/docs/introduction/GettingStarted)** 
 - [x] **[Reselect](https://github.com/reduxjs/reselect)**
 - [x] **[Redux Persist](https://github.com/rt2zz/redux-persist)**
+- [x] **[React Router](https://v5.reactrouter.com/web/api/Router/history-object)**
 - [x] **[Firebase](https://firebase.google.com/)**
 - [x] **[Stripe](https://stripe.com/docs/testing#testing-interactively)**
 
